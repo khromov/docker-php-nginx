@@ -4,9 +4,13 @@ LABEL Maintainer="Tim de Pater <code@trafex.nl>" \
 
 # Install packages and remove default server definition
 RUN apk --no-cache add php7 php7-fpm php7-opcache php7-mysqli php7-json php7-openssl php7-curl \
-    php7-zlib php7-xml php7-phar php7-intl php7-dom php7-xmlreader php7-ctype php7-session \
-    php7-mbstring php7-gd nginx supervisor curl && \
+    php7-zlib php7-xml php7-phar php7-intl php7-dom php7-xmlreader php7-ctype php7-session php7-simplexml \
+    php7-mbstring php7-gd nginx supervisor curl  php7-exif php7-zip php7-pecl-imagick php7-pecl-memcached tzdata htop mysql-client && \
     rm /etc/nginx/conf.d/default.conf
+
+# Install PHP tools
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 # Configure nginx
 COPY config/nginx.conf /etc/nginx/nginx.conf

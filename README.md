@@ -1,4 +1,39 @@
 # Docker PHP-FPM 7.3 & Nginx 1.16 on Alpine Linux
+
+# Fork notice
+
+This is a fork of the original image that is more adapter towards running WordPress, it includes everything in the base image and:
+
+* Composer
+* WP-CLI
+* Image extensions - GD2 and ImageMagick
+* Various other extensions (like SimpleXML)
+* MySQL CLI
+
+It's built on GitHub actions and hosted here:
+
+```
+TODO
+```
+
+#### Start Nginx, PHP and MySQL via Docker-compose
+
+```
+docker-compose up
+```
+
+#### Quick build / run
+
+```
+docker build . -t php 
+docker run -p 8888:8080 -t php
+```
+
+Go to:  
+http://localhost:8888/
+
+### Original readme
+
 Example PHP-FPM 7.3 & Nginx 1.16 setup for Docker, build on [Alpine Linux](http://www.alpinelinux.org/).
 The image is only +/- 35MB large.
 

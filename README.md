@@ -13,7 +13,7 @@ This is a fork of the original image that is more adapter towards running WordPr
 It's built on GitHub actions and hosted here:
 
 ```
-TODO
+TODO 
 ```
 
 #### Start Nginx, PHP and MySQL via Docker-compose

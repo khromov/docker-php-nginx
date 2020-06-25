@@ -10,11 +10,20 @@ This is a fork of the original image that is more adapter towards running WordPr
 * Various other extensions (like SimpleXML)
 * MySQL CLI
 
-It's built on GitHub actions and hosted here:
+It's built on GitHub actions and hosted on the GitHub Docker images repo.
+
+Fetch the prebuilt image in `docker-compose.yml` 
+```
+FROM docker.pkg.github.com/khromov/docker-php-nginx/docker-php-nginx
+```
+
+Or just fetch it:
 
 ```
-TODO 
+docker pull docker.pkg.github.com/khromov/docker-php-nginx/docker-php-nginx
 ```
+
+If you get "no basic auth credentials", see [this page](https://help.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages).
 
 #### Start Nginx, PHP and MySQL via Docker-compose
 

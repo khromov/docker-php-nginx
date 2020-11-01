@@ -1,4 +1,4 @@
-# Docker PHP-FPM 7.3.23 & Nginx 1.18 on Alpine Linux
+# Docker PHP-FPM 7.3.24 & Nginx 1.18 on Alpine Linux
 
 # Fork notice
 

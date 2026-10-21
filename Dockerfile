@@ -1,12 +1,12 @@
-FROM alpine:3.12
+FROM alpine:3.24
 LABEL Maintainer="Tim de Pater <code@trafex.nl>" \
-      Description="Lightweight container with Nginx 1.18 & PHP-FPM 7.3 based on Alpine Linux."
+      Description="Lightweight container with Nginx 1.30 & PHP-FPM 8.5 based on Alpine Linux."
 
 # Install packages and remove default server definition
-RUN apk --no-cache add php7 php7-fpm php7-opcache php7-mysqli php7-json php7-openssl php7-curl php7-soap \
-    php7-zlib php7-xml php7-phar php7-intl php7-dom php7-xmlreader php7-ctype php7-session php7-simplexml php7-pdo php7-pdo_mysql php7-tokenizer \
-    php7-mbstring php7-gd nginx supervisor curl git php7-exif php7-zip php7-pecl-imagick php7-pecl-memcached tzdata htop mysql-client && \
-    rm /etc/nginx/conf.d/default.conf
+RUN apk --no-cache add php85 php85-fpm php85-mysqli php85-json php85-openssl php85-curl php85-soap \
+    php85-zlib php85-xml php85-phar php85-intl php85-dom php85-xmlreader php85-ctype php85-session php85-simplexml php85-pdo php85-pdo_mysql php85-tokenizer \
+    php85-mbstring php85-gd nginx supervisor curl git php85-exif php85-zip php85-pecl-imagick php85-pecl-memcached tzdata htop mysql-client && \
+    rm /etc/nginx/http.d/default.conf
 
 # Install PHP tools
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
@@ -16,8 +16,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
 # Configure PHP-FPM
-COPY config/fpm-pool.conf /etc/php7/php-fpm.d/www.conf
-COPY config/php.ini /etc/php7/conf.d/custom.ini
+COPY config/fpm-pool.conf /etc/php85/php-fpm.d/www.conf
+COPY config/php.ini /etc/php85/conf.d/custom.ini
 
 # Configure supervisord
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -26,10 +26,10 @@ COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN mkdir -p /var/www/html
 
 # Make sure files/folders needed by the processes are accessable when they run under the nobody user
-RUN chown -R nobody.nobody /var/www/html && \
-  chown -R nobody.nobody /run && \
-  chown -R nobody.nobody /var/lib/nginx && \
-  chown -R nobody.nobody /var/log/nginx
+RUN chown -R nobody:nobody /var/www/html && \
+  chown -R nobody:nobody /run && \
+  chown -R nobody:nobody /var/lib/nginx && \
+  chown -R nobody:nobody /var/log/nginx
 
 # Switch to use a non-root user from here on
 USER nobody
